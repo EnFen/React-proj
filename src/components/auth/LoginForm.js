@@ -1,30 +1,28 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-
-import IsLoadingInfoMessage from "../forms/Messages/loadingInfoMessage";
+import Spinner from "../forms/Messages/spinner";
 import FlashMessage from "../forms/Messages/FlashMessage";
 
 export default function LoginForm(props) {
   const { submit, loading, flash } = props;
-  console.log('Flashes Error', flash)
 
   return (
-    <div>
-    {
-      flash && flash.data ==='Unauthorized' &&
+    <Fragment>
+      {
+        flash &&
         <FlashMessage
           color='red'
-          message={'You have entered a wrong username/password ...   '}
+          message={'Wrong email or password ...   '}
         />
-    }
+      }
       <div className='login-form'>
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as='h2' color='teal' textAlign='center'>
-            <Image src='/Assets/WBGS-logo.png' />
-              Log-in to your account {/* <Image src='/assets/logo.png' /> Log-in to your account */}
+              <Image src='/Assets/WBGS-logo.png' />
+              Log-in to your account
             </Header>
             <Form onSubmit={submit} size='large'>
               <Segment raised>
@@ -38,7 +36,7 @@ export default function LoginForm(props) {
                   type='password'
                 />
                 <Button color='teal' fluid size='large'>Login</Button>
-                {loading && <IsLoadingInfoMessage info='Just one moment' />}
+                {loading && <Spinner info='Just one moment' />}
               </Segment>
             </Form>
             <Message>
@@ -46,11 +44,13 @@ export default function LoginForm(props) {
             </Message>
           </Grid.Column>
         </Grid>
-      </div>   
-    </div>
+      </div>
+    </Fragment>
   );
 };
 
 LoginForm.propTypes = {
-  submit: PropTypes.func.isRequired
+  submit: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  flash: PropTypes.object
 };

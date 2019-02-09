@@ -1,28 +1,28 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-
-import IsLoadingInfoMessage from "../forms/Messages/loadingInfoMessage";
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import Spinner from "../forms/Messages/spinner";
 import FlashMessage from "../forms/Messages/FlashMessage";
 
 export default function RegistrationForm(props) {
     const { submit, loading, flash } = props
-    console.log("Flashes From Registeration Form", flash);
+
     return (
-        <div>
-          {
-            flash && flash.status === 500 &&
-            <FlashMessage
-                color='red'
-                message={"A user with the given username is already registered ... "}
-            />
-          }
+        <Fragment>
+            {
+                flash &&
+                <FlashMessage
+                    color='red'
+                    message={"An email with that name is already registered... "}
+                />
+            }
             <div className='register-form'>
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Header as='h2' color='teal' textAlign='center'>
-                            <Image src='/Assets/WBGS-logo.png' /> Sign up for for a free account
+                            <Image src='/Assets/WBGS-logo.png' />
+                            Sign up for for a free account
                     </Header>
                         <Form onSubmit={submit} size='large'>
                             <Segment raised>
@@ -36,7 +36,7 @@ export default function RegistrationForm(props) {
                                     type='password'
                                 />
                                 <Button color='teal' fluid size='large'>Submit</Button>
-                                {loading && <IsLoadingInfoMessage info='Just one moment...' />}
+                                {loading && <Spinner info='Just one moment...' />}
                             </Segment>
                         </Form>
                         <Message>
@@ -45,7 +45,7 @@ export default function RegistrationForm(props) {
                     </Grid.Column>
                 </Grid>
             </div>
-        </div>
+        </Fragment>
     );
 };
 
