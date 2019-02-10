@@ -35,7 +35,7 @@ class Nav extends Component {
                 {/* Link to Application Form - CTA; Not required for admin user  */}
                 {userRole !== 'admin' &&
                     <Menu.Item as={NavLink} to='/apply' name='apply' style={inactiveMenuItem} activeClassName="active red"  >
-                        <Icon name='add circle' />APPLY NOW!
+                        <Icon name='add circle' />APPLY
                     </Menu.Item>
                 }
 

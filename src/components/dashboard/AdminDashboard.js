@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 
 
 // local Imports
-import FlashMessage from "../forms/Messages/FlashMessage";
+import FlashMessage from "../messages/FlashMessage";
 import { fetchEventsList, loadEventsList } from '../../redux/actions/eventsListAction';
 import PaginateEventsList from "./PaginateEventsList";
 class AdminDashboard extends Component {
