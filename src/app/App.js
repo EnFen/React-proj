@@ -6,7 +6,7 @@ import Nav from "../components/nav/Nav";
 import LandingPage from "../components/pages/LandingPage/LandingPage";
 import AdminDashboard from "../components/dashboard/AdminDashboard";
 import EOIDetail from "../components/dashboard/EOIDetail";
-import CreateEventForm from "../components/forms/events/EventForm";
+import ApplicationForm from "../components/forms/events/ApplicationForm";
 import Authentication from "../components/auth/Authentication";
 import NotFound from "../components/_404/NotFound";
 import PropTypes from 'prop-types';
@@ -25,12 +25,13 @@ class App extends Component {
               <Route exact path="/" component={LandingPage} />
               {loggedIn && userRole === 'admin' && <Route exact path="/dashboard" component={AdminDashboard} />}
               {loggedIn && userRole === 'admin' && <Route path="/dashboard/:id" component={EOIDetail} />}
-              {userRole !== 'admin' && <Route path="/create" component={CreateEventForm} />}
+              {userRole !== 'admin' && <Route path="/apply" component={ApplicationForm} />}
               <Route path="/users/register" component={Authentication} />
               <Route path="/users/login" component={Authentication} />
               <Route path="/users/logout" component={Authentication} />
               <Route component={NotFound} />
             </Switch>
+            {/* WHy not put footer here?? */}
           </Fragment>
         </Router>
       </div>
@@ -40,7 +41,7 @@ class App extends Component {
 
 App.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  userRole: PropTypes.string.isRequired
+  userRole: PropTypes.string
 };
 
 const mapPropsToTypes = state => ({

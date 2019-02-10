@@ -1,10 +1,10 @@
 import React, { Fragment, Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { connect } from "react-redux";
 import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
-import { authenticateUser, logoutUser } from "../../redux/actions/authenticateUserAction";
 import PropTypes from 'prop-types';
+import { authenticateUser, logoutUser } from "../../redux/actions/authenticateUserAction";
+import { connect } from "react-redux";
 
 class Authentication extends Component {
 

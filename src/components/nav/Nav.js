@@ -1,146 +1,84 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Menu, Icon } from 'semantic-ui-react';
-
+import LoginMenu from './LogoutMenu';
+import LogoutMenu from './LoginMenu';
+import PropTypes from 'prop-types';
 import { logoutUser } from "../../redux/actions/authenticateUserAction";
-
-import LoginMenu from './LoginMenu';
-import LogoutMenu from './LogoutMenu';
+import { connect } from 'react-redux';
 
 class Nav extends Component {
-    state = {
-        activeItem: ''
-    }
-    capitalize = text => text.charAt(0).toUpperCase() + text.slice(1)
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-    handleOnLoginClick = (e, { name }) => {
-        console.log('handleOnLoginClick');
-        this.setState({ activeItem: name });
-    }
-    handleOnSignoutClick = e => {
-        console.log('handleOnSignoutClick');
+
+    // Logout a logged in user
+    handleLogOut = event => {
         this.props.logoutUser();
-        
-        // Remove all saved data from sessionStorage
-        sessionStorage.clear();
-    }
-    handleOnRegisterClick = (e, { name }) => {
-        console.log('handleOnRegister');
-        this.setState({ activeItem: name });
-    }
+    };
 
     render() {
-        const { loggedIn, userRole, emailToken } = this.props;
-        const { activeItem } = this.state;
-        console.log('emailToken | userRole', emailToken, userRole)
+        const { loggedIn, userRole, email } = this.props;
+
+        console.log('Logged In: ', loggedIn)
+        console.log('Email: ', email)
+
         return (
-            <Menu pointing secondary className="sticky" icon='labeled' size='mini' style={{ padding: '0px 20px' }}  >
-                <Menu.Item
-                    as={NavLink} to='/'
-                    name='home'
-                    active={activeItem === 'home'}
-                    onClick={this.handleItemClick}
-                    style={dodgerRed}
-                    exact activeClassName="active red"
-                >
+            <Menu pointing secondary className="sticky" icon='labeled' size='mini' style={{ padding: '0px 20px' }} >
+
+                {/* Link to Home */}
+                <Menu.Item as={NavLink} exact to='/' name='home' style={inactiveMenuItem} activeClassName="active red" >
                     <Icon name='home' />HOME
                 </Menu.Item>
-                
+
+                {/* Link to Dashboard; Only available to authorised admins */}
                 {loggedIn && userRole === 'admin' &&
-                    <Menu.Item
-                        as={NavLink} to='/dashboard'
-                        name='dashboard'
-                        active={activeItem === 'users'}
-                        onClick={this.handleItemClick}
-                        style={dodgerRed}
-                        activeClassName="active red"
-                    >
+                    <Menu.Item as={NavLink} to='/dashboard' name='dashboard' style={inactiveMenuItem} activeClassName="active red" >
                         <Icon name='users' />DASHBOARD
                     </Menu.Item>
                 }
 
-                <Menu.Item
-                    position='left'
-                    as={NavLink} to='/create'
-                    name='create'
-                    active={activeItem === 'add'}
-                    onClick={this.handleItemClick}
-                    activeClassName="active red"
-                    style={dodgerRed}
-                >
-                    <Icon name='add circle' />CREATE EVENT
-                </Menu.Item>
-                {/* {loggedIn && loggedInAsAdmin && (<Menu.Item
-                        as={NavLink} to='/dashboard'
-                        name='dashboard'
-                        active={activeItem === 'users'}
-                        onClick={this.handleItemClick}
-                        activeClassName="active teal" >
-                        <Icon name='users' />Dashboard
-                        </Menu.Item>)
-                } */}
-
-                {
-                    loggedIn && emailToken
-                        ? (<LoginMenu
-                            username={(emailToken.split('@')[0]).toUpperCase()}
-                            onLogout={this.handleOnSignoutClick} />)
-                        : (<LogoutMenu
-                            style={dodgerRed}
-                            active={activeItem === 'sign in'}
-                            onLogin={this.handleOnLoginClick}
-                            onRegister={this.handleOnRegisterClick} />)
+                {/* Link to Application Form - CTA; Not required for admin user  */}
+                {userRole !== 'admin' &&
+                    <Menu.Item as={NavLink} to='/apply' name='apply' style={inactiveMenuItem} activeClassName="active red"  >
+                        <Icon name='add circle' />APPLY NOW!
+                    </Menu.Item>
                 }
 
+                {/* Auth Menus; Shows login menu if not yet logged in, or logout menu if already logged in */}
+                {!loggedIn &&
+                    <LoginMenu style={inactiveMenuItem} />
+                }
+                {loggedIn &&
+                    <LogoutMenu email={email} onLogOut={this.handleLogOut} />
+                }
             </Menu>
         );
-
     };
 };
 
 Nav.propTypes = {
     logoutUser: PropTypes.func.isRequired,
-    // emailToken: PropTypes.object.isRequired,
-    // userRole: PropTypes.object.isRequired,
+    userRole: PropTypes.object,
+    email: PropTypes.string,
 
 };
 
 const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
-    emailToken: state.auth.authenticatedUserEmail,
     userRole: state.auth.authenticatedUserRole,
+    email: state.auth.authenticatedUserEmail,
 
 })
 
-const dodgerRed = {
+// In component styling
+const inactiveMenuItem = {
     fontFamily: 'Raley, sans-serif',
     fontSize: 12,
     fontWeight: 600,
     letterSpacing: 2,
-    color: '#9d9d9d',
-    // background: 'yellow'
-
+    color: '#9d9d9d'
 }
-// connect function takes two arguments; 
+
+// connect function takes two arguments;
 // The first defines the data being pulled from store into the called component - mapStateToProps
 // The second defines the actions being sent from the called component to update the store - mapDispatchToProps
 // Both of these data are added to the component props
 export default withRouter(connect(mapStateToProps, { logoutUser })(Nav));
-
-// const Navi = props => (
-//     <NavLink
-//         exact
-//         {...props}
-//         activeClassName="active"
-//     />
-// );
-
-// const Navigation = () => (
-//     <Menu secondary>
-//         <Menu.Item as={Navi} to="/homes" name="homes" />
-//         <Menu.Item as={Navi} to="/aboutu" name="messages" />
-//         <Menu.Item as={Navi} to="/sample" name="friends" />
-//     </Menu>
-// );

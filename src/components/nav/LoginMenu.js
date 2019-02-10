@@ -1,22 +1,21 @@
-import React from 'react';
+import React from 'react'
 import { NavLink } from 'react-router-dom';
-import { Dropdown, Menu, Image } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 
 function LoginMenu(props) {
-  const { onLogout, username } = props;
+  const { style } = props;
   return (
-    <Menu.Item position="right" >
-      <Image avatar spaced="right" src='/Assets/user.png' style={{ marginBottom: 10 }} />
-      <Dropdown pointing="top right" text={username}>
-        <Dropdown.Menu>
-          <Dropdown.Item text="My Profile" icon="user" />
-          <Dropdown.Item text="Settings" icon="settings" />
-          <Dropdown.Item as={NavLink} to='/' onClick={onLogout} text="Sign Out" icon="power" />
-        </Dropdown.Menu>
-      </Dropdown>
-    </Menu.Item>
+    <Menu.Menu position="right">
+      {/* Link to Login; Only seen by logged out users */}
+      <Menu.Item as={NavLink} to='/users/login' name='login' style={style} activeClassName="active red" >
+        <Icon name='sign in' />LOGIN
+      </Menu.Item>
+      {/* Link to Register: Only seen by logged out users*/}
+      <Menu.Item as={NavLink} to='/users/register' name='register' style={style} activeClassName="active red" >
+        <Icon name='user plus' />REGISTER
+      </Menu.Item>
+    </Menu.Menu>
   )
-}
+};
 
-
-export default LoginMenu
+export default LoginMenu;

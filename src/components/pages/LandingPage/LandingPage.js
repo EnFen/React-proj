@@ -4,7 +4,7 @@ import { Button } from 'semantic-ui-react';
 import { Grid } from 'react-mdl';
 
 import GarageSaleVid from './Youtube'
-import InfoPg from './InfoPg';
+import InfoPg from './InfoPage';
 import FlashMessage from "../../forms/Messages/FlashMessage";
 import Footer from '../Footer'
 

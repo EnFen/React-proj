@@ -1,34 +1,26 @@
-import React from 'react'
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, Icon } from 'semantic-ui-react';
+import { Dropdown, Menu, Image } from 'semantic-ui-react';
+import { retrieveUserFromEmail } from '../helperFunctions/textHelpers';
 
-function LoginMenu(props) {
-  const { onLogin, onRegister, active, style } = props;
+function LogoutMenu(props) {
+  const { onLogOut, email, style } = props;
+  console.log(email)
+  const username = retrieveUserFromEmail(email);
+
   return (
-    <Menu.Menu position="right">
-      <Menu.Item
-        style={style}
-        active={active}
-        activeClassName="active red"
-        onClick={onLogin}
-        as={NavLink}
-        to='/users/login'
-        name='Login' >
-        <Icon name='sign in' />LOGIN
-      </Menu.Item>
-      <Menu.Item
-        style={style}
-        active={active}
-        activeClassName="active red"
-        onClick={onRegister}
-        as={NavLink}
-        to='/users/register'
-        name='Register'
-      >
-        <Icon name='user plus' />REGISTER
-      </Menu.Item>
-    </Menu.Menu>
+    <Menu.Item position="right" style={style} >
+      <Image avatar spaced="right" src='/Assets/user.png' style={{ marginBottom: 10 }} />
+      <Dropdown pointing="top right" text={username} >
+        <Dropdown.Menu>
+          {/* <Dropdown.Item text="My Profile" icon="user" />
+          <Dropdown.Item text="Settings" icon="settings" /> */}
+          <Dropdown.Item as={NavLink} to='/' onClick={onLogOut} text="Sign Out" icon="power" />
+        </Dropdown.Menu>
+      </Dropdown>
+    </Menu.Item>
   )
-}
+};
 
-export default LoginMenu
+
+export default LogoutMenu;

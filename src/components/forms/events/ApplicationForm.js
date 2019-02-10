@@ -4,11 +4,11 @@ import arrayMutators from "final-form-arrays";
 
 import createDecorator from "final-form-focus";
 import Footer from '../../pages/Footer'
-import RenderEventForm from '././renderEventForm';
+import RenderEventForm from './renderEventForm';
 import isUri from 'valid-url';
 import validate from '../validates';
 import { api } from "../../../api/init";
-import FormStateFromRedux from "../FormStateFromRedux";
+// import FormStateFromRedux from "../FormStateFromRedux";
 
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -29,12 +29,12 @@ class CreateEventForm extends Component {
       page: Math.max(state.page - 1, 0)
     }));
   }
-  
-  handleFormSubmit = async values => { 
+
+  handleFormSubmit = async values => {
     // const location = [values.suburb, values.zipCode, values.country];
-    const key_influencers = values.key_influencers ? 
-                             [...values.key_influencers.split(",").map(s => s.trim())] :
-                             [];
+    const key_influencers = values.key_influencers ?
+      [...values.key_influencers.split(",").map(s => s.trim())] :
+      [];
     const eventData = {
       first_name: values.first_name,
       last_name: values.last_name,
@@ -50,18 +50,18 @@ class CreateEventForm extends Component {
       key_influencers,
       location: [values.suburb, values.zipCode, values.country]
     };
-    try{
-         console.log(JSON.stringify(eventData));
-         const response = await api.post("/expression-of-interest", eventData);
+    try {
+      console.log(JSON.stringify(eventData));
+      const response = await api.post("/expression-of-interest", eventData);
 
-         const eventConfirmation = response.data;
+      const eventConfirmation = response.data;
 
-         showResults(eventConfirmation);
-         this.props.history.push('/');
-       }catch(error){
+      showResults(eventConfirmation);
+      this.props.history.push('/');
+    } catch (error) {
       console.error('error submitting form', error)
     }
-    
+
   }
 
   render() {
@@ -69,7 +69,7 @@ class CreateEventForm extends Component {
       <div>
         <FinalForm
           onSubmit={this.handleFormSubmit}
-          mutators={{...arrayMutators}}
+          mutators={{ ...arrayMutators }}
           decorators={[focusOnError]}
           validate={validate}
           validateOnBlur={true}
@@ -79,9 +79,9 @@ class CreateEventForm extends Component {
           nextStep={this.nextStep}
           prevStep={this.prevStep}
           render={RenderEventForm}
-          />
+        />
         {/* <FormStateFromRedux form="userForm" /> */}
-        <Footer/>
+        <Footer />
       </div>
     )
   }

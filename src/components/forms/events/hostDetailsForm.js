@@ -10,7 +10,7 @@ import { FormSpy, Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 // import {showResults } from './EventForm';
 
-import FormStateToRedux from "../FormStateToRedux";
+// import FormStateToRedux from "../FormStateToRedux";
 import { InputText, RenderSocials } from '../eventFormfields/EventFormfields';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -26,7 +26,7 @@ function HostDetailsForm(props) {
     <Grid textAlign='center' >
       <Grid.Column width={10}>
         <Segment raised>
-          <FormStateToRedux form="userForm" />
+          {/* <FormStateToRedux form="userForm" /> */}
           <Header sub style={styles.DodgerRed} content='Your Details' />
           <Form onSubmit={handleSubmit} >
             <Form.Field>
@@ -77,19 +77,19 @@ function HostDetailsForm(props) {
                 subscription={{ value: true, active: true, error: true, touched: true }}
               />
             </Form.Field>
-            <FormSpy subscription={{ values: true, errors: true }}>            
+            <FormSpy subscription={{ values: true, errors: true }}>
               {({ values, errors }) => (
-                !page && <Button 
-                            type='button' 
-                            label="Continue" 
-                            color='red' 
-                            disabled={((Object.keys(values).length < 4)) || !values.socials }
-                            onClick={nextStep}
-                            />
+                !page && <Button
+                  type='button'
+                  label="Continue"
+                  color='red'
+                  disabled={((Object.keys(values).length < 4)) || !values.socials}
+                  onClick={nextStep}
+                />
 
               )}
-              
-            </FormSpy>          
+
+            </FormSpy>
           </Form>
         </Segment>
       </Grid.Column>
