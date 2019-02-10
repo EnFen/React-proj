@@ -8,9 +8,9 @@ import {
     Form,
     Checkbox,
     Button,
-    Modal 
+    Modal
 } from 'semantic-ui-react';
-import { api } from '../../api/init';
+import { api } from '../../../api/init';
 
 export default class EOIDetails extends Component {
 
@@ -60,7 +60,7 @@ export default class EOIDetails extends Component {
                 first_name: firstName,
                 last_name: lastName,
                 organisation,
-                user: {email},
+                user: { email },
             },
             criteria: {
                 socials_check: socialsCheck,
@@ -101,34 +101,37 @@ export default class EOIDetails extends Component {
             deniedReason
         });
 
-        
+
 
     }
 
-    
+
 
     handleAcptShort = async () => {
-            this.setState({ shortlisted: true})
-            
-            const { id } = this.props.match.params;
-            const response= await api.put(`/dashboard/${id}`, 
-            { socials_check: this.state.socialsCheck,
+        this.setState({ shortlisted: true })
+
+        const { id } = this.props.match.params;
+        const response = await api.put(`/dashboard/${id}`,
+            {
+                socials_check: this.state.socialsCheck,
                 description_check: this.state.descCheck,
                 volunteers_check: this.state.volunteerCheck,
                 target_value_check: this.state.targetCheck,
                 location_check: this.state.locationCheck,
                 best_date_check: this.state.bestDateCheck,
                 key_influencers_check: this.state.keyInfCheck,
-                shortlisted: true ,
+                shortlisted: true,
                 denied: this.state.denied,
-                denied_reason: this.state.deniedReason}) 
-                console.log(response.data)
+                denied_reason: this.state.deniedReason
+            })
+        console.log(response.data)
     }
 
     handleUpdate = async () => {
         const { id } = this.props.match.params;
-            const response= await api.put(`/dashboard/${id}`, 
-            { socials_check: this.state.socialsCheck,
+        const response = await api.put(`/dashboard/${id}`,
+            {
+                socials_check: this.state.socialsCheck,
                 description_check: this.state.descCheck,
                 volunteers_check: this.state.volunteerCheck,
                 target_value_check: this.state.targetCheck,
@@ -136,39 +139,40 @@ export default class EOIDetails extends Component {
                 best_date_check: this.state.bestDateCheck,
                 key_influencers_check: this.state.keyInfCheck,
                 denied: this.state.denied,
-                denied_reason: this.state.deniedReason}) 
-                console.log(response.data)
-                this.props.history.push('/dashboard')
+                denied_reason: this.state.deniedReason
+            })
+        console.log(response.data)
+        this.props.history.push('/dashboard')
 
     }
 
     handleRemoveShortlist = async () => {
         const { id } = this.props.match.params;
-        this.setState({shortlisted: false})
-        const response= await api.put(`/dashboard/${id}`, 
-        { shortlisted: false }) 
-            console.log(response.data)
+        this.setState({ shortlisted: false })
+        const response = await api.put(`/dashboard/${id}`,
+            { shortlisted: false })
+        console.log(response.data)
 
 
     }
 
     handleReject = (event) => {
         event.preventDefault()
-        this.setState({denied: true})
-        this.setState({isOpen: true})
-        
+        this.setState({ denied: true })
+        this.setState({ isOpen: true })
+
     }
 
-    handleClose = (event)=>{
+    handleClose = (event) => {
         event.preventDefault()
-        this.setState({denied: false})
-        this.setState({isOpen: false})
+        this.setState({ denied: false })
+        this.setState({ isOpen: false })
     }
 
     provideDenialReason = (event) => {
         this.setState({ deniedReason: event.target.value })
-      }
-  
+    }
+
 
 
     handleToggle = (evt) => {
@@ -190,7 +194,7 @@ export default class EOIDetails extends Component {
                 newState = { targetCheck: !this.state.targetCheck }
                 break;
             case 'volunteerCheck':
-                newState = { volunteerCheck: !this.state.volunteerCheck}
+                newState = { volunteerCheck: !this.state.volunteerCheck }
                 break;
             case 'bestDateCheck':
                 newState = { bestDateCheck: !this.state.bestDateCheck }
@@ -227,7 +231,7 @@ export default class EOIDetails extends Component {
             councilDetails,
             councilRelationship,
             keyInfluencers,
-            denied} = this.state;
+            denied } = this.state;
         return (
             <div className="form-grid">
                 <Grid textAlign='center' className="form-grid1">
@@ -273,7 +277,7 @@ export default class EOIDetails extends Component {
                                             <List.Header style={{ color: "#cb3538" }}>
                                                 socials
                                             </List.Header>
-                                            {socials.map((socials, index)=> <p key={index}>{socials}</p>)}
+                                            {socials.map((socials, index) => <p key={index}>{socials}</p>)}
                                         </List.Content>
                                     </List.Item>
                                     <List.Item>
@@ -313,7 +317,7 @@ export default class EOIDetails extends Component {
                                             <List.Header style={{ color: "#cb3538" }}>
                                                 location
                                             </List.Header>
-                                            {location[0]}, 
+                                            {location[0]},
                                         </List.Content>
                                     </List.Item>
                                     <List.Item>
@@ -353,7 +357,7 @@ export default class EOIDetails extends Component {
                                             <List.Header style={{ color: "#cb3538" }}>
                                                 Key People Within Your Organization
                                             </List.Header>
-                                            {keyInfluencers.map((keyInfluencers, index)=> <p key={index}>{keyInfluencers}</p>)}
+                                            {keyInfluencers.map((keyInfluencers, index) => <p key={index}>{keyInfluencers}</p>)}
                                         </List.Content>
                                     </List.Item>
                                 </List>
@@ -372,7 +376,7 @@ export default class EOIDetails extends Component {
                                                 Has the host provided social Links, hosts social links have been checked and the host demonstates upstanding bevaiour on these platforms?
                                                 </List.Header>
                                             Check if yes - <Checkbox onChange={this.handleToggle} checked={this.state.socialsCheck} id="socialsCheck" />
-                                            {this.state.socialsCheck ? <p>Socials Check Confirmed</p>: <p>Socials Check Unconfirmed</p>}
+                                            {this.state.socialsCheck ? <p>Socials Check Confirmed</p> : <p>Socials Check Unconfirmed</p>}
                                         </List.Content>
                                     </List.Item>
                                     <List.Item>
@@ -381,7 +385,7 @@ export default class EOIDetails extends Component {
                                                 Does the organization meet and match the key WBGS values and believes.
                                             </List.Header>
                                             Check if yes - <Checkbox onChange={this.handleToggle} checked={this.state.descCheck} id="descCheck" />
-                                            {this.state.descCheck ? <p>Description Check Confirmed</p>: <p>Description Check Unconfirmed</p>}
+                                            {this.state.descCheck ? <p>Description Check Confirmed</p> : <p>Description Check Unconfirmed</p>}
                                         </List.Content>
                                     </List.Item>
                                     <List.Item>
@@ -390,7 +394,7 @@ export default class EOIDetails extends Component {
                                                 Is the scope and aim of the described event achievable?
                                             </List.Header>
                                             Check if yes - <Checkbox onChange={this.handleToggle} checked={this.state.targetCheck} id="targetCheck" />
-                                            {this.state.targetCheck ? <p>Target Check Confirmed</p>: <p>Target Check Unconfirmed</p>}
+                                            {this.state.targetCheck ? <p>Target Check Confirmed</p> : <p>Target Check Unconfirmed</p>}
                                         </List.Content>
                                     </List.Item>
                                     <List.Item>
@@ -399,7 +403,7 @@ export default class EOIDetails extends Component {
                                                 Does the organization have 6-10 volunteers to chair a committee?
                                             </List.Header>
                                             Check if yes - <Checkbox onChange={this.handleToggle} checked={this.state.volunteerCheck} id="volunteerCheck" />
-                                            {this.state.volunteerCheck ? <p>Volunteers Check Confirmed</p>: <p>Volunteers Check Unconfirmed</p>}
+                                            {this.state.volunteerCheck ? <p>Volunteers Check Confirmed</p> : <p>Volunteers Check Unconfirmed</p>}
                                         </List.Content>
                                     </List.Item>
                                     <List.Item>
@@ -408,7 +412,7 @@ export default class EOIDetails extends Component {
                                                 Is the requested date a reasonable to hold a WBGS?
                                             </List.Header>
                                             Check if yes - <Checkbox onChange={this.handleToggle} checked={this.state.bestDateCheck} id="bestDateCheck" />
-                                            {this.state.bestDateCheck ? <p>Date Check Confirmed</p>: <p>Date Check Unconfirmed</p>}
+                                            {this.state.bestDateCheck ? <p>Date Check Confirmed</p> : <p>Date Check Unconfirmed</p>}
                                         </List.Content>
                                     </List.Item>
                                     <List.Item>
@@ -417,7 +421,7 @@ export default class EOIDetails extends Component {
                                                 Is the loaction is feasable to hold a WBGS?
                                             </List.Header>
                                             Check if yes - <Checkbox onChange={this.handleToggle} checked={this.state.locationCheck} id="locationCheck" />
-                                            {this.state.locationCheck ? <p>Location Check Confirmed</p>: <p>Location Check Unconfirmed</p>}
+                                            {this.state.locationCheck ? <p>Location Check Confirmed</p> : <p>Location Check Unconfirmed</p>}
                                         </List.Content>
                                     </List.Item>
                                     <List.Item>
@@ -426,7 +430,7 @@ export default class EOIDetails extends Component {
                                                 Are Key people within the organization are able to help WBGS staff arrange the event and are authorized to make decisions?
                                             </List.Header>
                                             Check if yes - <Checkbox onChange={this.handleToggle} checked={this.state.keyInfCheck} id="keyInfCheck" />
-                                            {this.state.keyInfCheck ? <p>key People Check Confirmed</p>: <p>Key People Check Unconfirmed</p>}
+                                            {this.state.keyInfCheck ? <p>key People Check Confirmed</p> : <p>Key People Check Unconfirmed</p>}
                                         </List.Content>
                                     </List.Item>
                                 </List>
@@ -439,16 +443,16 @@ export default class EOIDetails extends Component {
                         <Segment inverted style={{ textAlign: "justify", background: "#FFFFFF" }}>
                             <img src={this.state.shortlisted ? "/Assets/WBGS-logo.png" : "/Assets/WBGS-logo dulled.png"} className="wbgs-logo" />
                         </Segment>
-                        
+
                     </Grid.Column>
                 </Grid>
                 <Grid className="form-grid4">
                     <Grid.Column>
                         <Segment floated='right' inverted style={{ textAlign: "justify", background: "#cb3538" }}>
                             <Button.Group>
-                                {this.state.shortlisted ? 
-                                 <Button onClick={this.handleRemoveShortlist} color={"black"} size={"mini"} >Remove Shortlist</Button>
-                                :<Button onClick={this.handleAcptShort} color={"black"} size={"mini"} >Shortlist Candidate</Button>
+                                {this.state.shortlisted ?
+                                    <Button onClick={this.handleRemoveShortlist} color={"black"} size={"mini"} >Remove Shortlist</Button>
+                                    : <Button onClick={this.handleAcptShort} color={"black"} size={"mini"} >Shortlist Candidate</Button>
                                 }
                                 <Button color="red" size={"mini"} onClick={this.handleReject}>Reject Candidate</Button>
                                 <Button color="blue" size={"mini"} onClick={this.handleUpdate}>Update Checks</Button>
@@ -458,25 +462,25 @@ export default class EOIDetails extends Component {
                 </Grid>
 
                 <Link to='/dashboard'><Button color='black'>
-                         Back To Dashboard
+                    Back To Dashboard
                 </Button></Link>
 
-                <Modal open={this.state.isOpen}  size='small'>
+                <Modal open={this.state.isOpen} size='small'>
                     <Header />
                     <Modal.Content>
-                    <form>
-                    <label>Reason for Denial:</label><input value={this.state.DenialReason} onChange={this.provideDenialReason}/>
-                    </form>
+                        <form>
+                            <label>Reason for Denial:</label><input value={this.state.DenialReason} onChange={this.provideDenialReason} />
+                        </form>
                     </Modal.Content>
                     <Modal.Actions>
-                    <Button basic color='red'  onClick={this.handleClose}>
-                         Close
+                        <Button basic color='red' onClick={this.handleClose}>
+                            Close
                     </Button>
-                    <Button color='green' onClick={this.handleUpdate}>
-                         Confirm
+                        <Button color='green' onClick={this.handleUpdate}>
+                            Confirm
                     </Button>
-                </Modal.Actions>
-            </Modal>
+                    </Modal.Actions>
+                </Modal>
             </div>
 
         )

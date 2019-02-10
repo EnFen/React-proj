@@ -1,5 +1,5 @@
 // import { ARRAY_ERROR} from "final-form";
-import isValidEmail from '../helperFunctions/emailsValidator';
+import isValidEmail from '../services/emailsValidator';
 var validUrl = require("valid-url");
 
 export default values => {

@@ -1,12 +1,13 @@
 import React, { Fragment, Component } from "react";
 import { connect } from 'react-redux';
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import ScrollToTop from '../components/services/ScrollToTop';
 import "./App.css";
 import Nav from "../components/nav/Nav";
 import FlashMessage from "../components/messages/FlashMessage";
 import LandingPage from "../components/pages/LandingPage/LandingPage";
-import AdminDashboard from "../components/dashboard/AdminDashboard";
-import EOIDetail from "../components/dashboard/EOIDetail";
+import AdminDashboard from "../components/pages/dashboard/AdminDashboard";
+import EOIDetail from "../components/pages/dashboard/EOIDetail";
 import ApplicationForm from "../components/forms/events/ApplicationForm";
 import Authentication from "../components/auth/Authentication";
 import NotFound from "../components/_404/NotFound";
@@ -21,26 +22,28 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Fragment>
-            <Nav />
-            {loggedIn && (userRole === 'user') &&
-              <FlashMessage color='teal' message={'You have signed in successfully...   '} />
-            }
-            {sessionEnd &&
-              <FlashMessage color='teal' message={'You have signed out successfully...   '} />
-            }
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              {loggedIn && userRole === 'admin' && <Route exact path="/dashboard" component={AdminDashboard} />}
-              {loggedIn && userRole === 'admin' && <Route path="/dashboard/:id" component={EOIDetail} />}
-              {userRole !== 'admin' && <Route path="/apply" component={ApplicationForm} />}
-              <Route path="/users/register" component={Authentication} />
-              <Route path="/users/login" component={Authentication} />
-              <Route path="/users/logout" component={Authentication} />
-              <Route component={NotFound} />
-            </Switch>
-            {userRole !== 'admin' && <Footer />}
-          </Fragment>
+          <ScrollToTop>
+            <Fragment>
+              <Nav />
+              {loggedIn && (userRole === 'user') &&
+                <FlashMessage color='teal' message={'You have signed in successfully...   '} />
+              }
+              {sessionEnd &&
+                <FlashMessage color='teal' message={'You have signed out successfully...   '} />
+              }
+              <Switch>
+                <Route exact path="/" component={LandingPage} />
+                {loggedIn && userRole === 'admin' && <Route exact path="/dashboard" component={AdminDashboard} />}
+                {loggedIn && userRole === 'admin' && <Route path="/dashboard/:id" component={EOIDetail} />}
+                {userRole !== 'admin' && <Route path="/apply" component={ApplicationForm} />}
+                <Route path="/users/register" component={Authentication} />
+                <Route path="/users/login" component={Authentication} />
+                <Route path="/users/logout" component={Authentication} />
+                <Route component={NotFound} />
+              </Switch>
+              <Route exact path={["/", "/apply"]} component={Footer} />
+            </Fragment>
+          </ScrollToTop>
         </Router>
       </div>
     );

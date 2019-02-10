@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Dropdown, Menu, Image } from 'semantic-ui-react';
-import { retrieveUserFromEmail } from '../helperFunctions/textHelpers';
+import { retrieveUserFromEmail } from '../services/textHelpers';
 import PropTypes from 'prop-types';
 
 function LogoutMenu(props) {
