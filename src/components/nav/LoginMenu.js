@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { Menu, Icon } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 function LoginMenu(props) {
   const { style } = props;
@@ -16,6 +17,10 @@ function LoginMenu(props) {
       </Menu.Item>
     </Menu.Menu>
   )
+};
+
+LoginMenu.propTypes = {
+  style: PropTypes.object.isRequired
 };
 
 export default LoginMenu;

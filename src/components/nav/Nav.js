@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Menu, Icon } from 'semantic-ui-react';
-import LoginMenu from './LogoutMenu';
-import LogoutMenu from './LoginMenu';
+import LoginMenu from './LoginMenu';
+import LogoutMenu from './LogoutMenu';
 import PropTypes from 'prop-types';
 import { logoutUser } from "../../redux/actions/authenticateUserAction";
 import { connect } from 'react-redux';
@@ -16,9 +16,6 @@ class Nav extends Component {
 
     render() {
         const { loggedIn, userRole, email } = this.props;
-
-        console.log('Logged In: ', loggedIn)
-        console.log('Email: ', email)
 
         return (
             <Menu pointing secondary className="sticky" icon='labeled' size='mini' style={{ padding: '0px 20px' }} >
@@ -43,11 +40,9 @@ class Nav extends Component {
                 }
 
                 {/* Auth Menus; Shows login menu if not yet logged in, or logout menu if already logged in */}
-                {!loggedIn &&
-                    <LoginMenu style={inactiveMenuItem} />
-                }
-                {loggedIn &&
-                    <LogoutMenu email={email} onLogOut={this.handleLogOut} />
+                {loggedIn
+                    ? <LogoutMenu email={email} onLogOut={this.handleLogOut} />
+                    : <LoginMenu style={inactiveMenuItem} />
                 }
             </Menu>
         );
@@ -56,7 +51,7 @@ class Nav extends Component {
 
 Nav.propTypes = {
     logoutUser: PropTypes.func.isRequired,
-    userRole: PropTypes.object,
+    userRole: PropTypes.string,
     email: PropTypes.string,
 
 };

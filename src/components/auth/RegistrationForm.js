@@ -5,8 +5,8 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 import Spinner from "../forms/Messages/spinner";
 import FlashMessage from "../forms/Messages/FlashMessage";
 
-export default function RegistrationForm(props) {
-    const { submit, loading, flash } = props
+const RegistrationForm = (props) => {
+    const { submit, loading, flash } = props;
 
     return (
         <Fragment>
@@ -52,3 +52,5 @@ export default function RegistrationForm(props) {
 RegistrationForm.propTypes = {
     submit: PropTypes.func.isRequired
 };
+
+export default RegistrationForm;

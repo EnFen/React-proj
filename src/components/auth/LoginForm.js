@@ -5,7 +5,7 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 import Spinner from "../forms/Messages/spinner";
 import FlashMessage from "../forms/Messages/FlashMessage";
 
-export default function LoginForm(props) {
+const LoginForm = (props) => {
   const { submit, loading, flash } = props;
 
   return (
@@ -54,3 +54,5 @@ LoginForm.propTypes = {
   loading: PropTypes.bool.isRequired,
   flash: PropTypes.object
 };
+
+export default LoginForm;
