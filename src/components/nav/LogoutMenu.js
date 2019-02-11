@@ -5,11 +5,11 @@ import { retrieveUserFromEmail } from '../services/textHelpers';
 import PropTypes from 'prop-types';
 
 function LogoutMenu(props) {
-  const { onLogOut, email, style } = props;
+  const { onLogOut, email } = props;
   const username = retrieveUserFromEmail(email);
 
   return (
-    <Menu.Item position="right" style={style} >
+    <Menu.Item position="right">
       <Image avatar spaced="right" src='/Assets/user.png' style={{ marginBottom: 10 }} />
       <Dropdown pointing="top right" text={username} >
         <Dropdown.Menu>
@@ -25,8 +25,7 @@ function LogoutMenu(props) {
 
 LogoutMenu.propTypes = {
   onLogOut: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-  style: PropTypes.object.isRequired
+  email: PropTypes.string.isRequired
 };
 
 

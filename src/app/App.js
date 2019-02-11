@@ -41,7 +41,7 @@ class App extends Component {
                 <Route path="/users/logout" component={Authentication} />
                 <Route component={NotFound} />
               </Switch>
-              <Route exact path={["/", "/apply"]} component={Footer} />
+              <Route path="/" render={(props) => (props.location.pathname === "/" || props.location.pathname === '/apply') && <Footer />} />
             </Fragment>
           </ScrollToTop>
         </Router>

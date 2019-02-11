@@ -77,12 +77,12 @@ h1 {
 }
 
 
-.enviroment {
+.planet {
     grid-column-start: 3;
     grid-column-end: 4;
 }
 
-.waste {
+.purpose {
     grid-column-start: 4;
     grid-column-end: 5;
 }
@@ -400,8 +400,6 @@ iframe {
     flex-direction: column;
     margin: 0 auto;
     width: 600px;
-    /* background: yellow; */
-    /* height: 100vh; */
 }
 
 .eoiCards {
