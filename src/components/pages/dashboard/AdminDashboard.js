@@ -75,11 +75,10 @@ AdminDashboard.propTypes = {
   limitPerPage: PropTypes.number.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   eventsList: state.dashboard.eventsList,
   eventsCount: state.dashboard.eventsCount,
   showShortlist: state.dashboard.showShortlist,
-  // eventError: state.dashboard.eventError, // TODO: Can this be sent to flash message at App level??
   pageNum: state.dashboard.pageNum,
   limitPerPage: state.dashboard.limitPerPage
 });

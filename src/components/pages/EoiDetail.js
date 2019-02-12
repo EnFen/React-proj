@@ -10,7 +10,7 @@ import {
     Button,
     Modal
 } from 'semantic-ui-react';
-import { api } from '../../../api/init';
+import { api } from '../../api/init';
 
 export default class EOIDetails extends Component {
 

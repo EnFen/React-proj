@@ -31,7 +31,6 @@ const fetchDashboard = (pageNum, limit, isShortlist = false) => async dispatch =
     };
 
   } catch (error) {
-
     dispatch({
       type: DASHBOARD_ERROR_ACTION,
       payload: error

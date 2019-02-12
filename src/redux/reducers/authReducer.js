@@ -10,7 +10,8 @@ const initialState = {
   loggedIn: false,
   authenticatedUserEmail: null,
   authenticatedUserRole: null,
-  authError: null,
+  authErrorType: null,
+  authErrorMsg: null,
   sessionEnd: false
 };
 
@@ -28,7 +29,9 @@ export default (state = initialState, action) => {
         loading: false,
         loggedIn: true,
         authenticatedUserEmail: action.payload.email,
-        authenticatedUserRole: action.payload.role
+        authenticatedUserRole: action.payload.role,
+        authErrorType: null,
+        authErrorMsg: null
       };
     case LOGOUT_ACTION:
       return {
@@ -40,9 +43,12 @@ export default (state = initialState, action) => {
         authenticatedUserRole: null
       };
     case AUTH_ERROR_ACTION:
+      console.log(action.payload.error, action.payload.type)
       return {
         ...state,
-        authError: action.payload
+        // loading: false,
+        authErrorType: action.payload.type,
+        authErrorMsg: action.payload.error
       };
     default:
       return state;

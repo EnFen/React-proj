@@ -10,7 +10,7 @@ const initialState = {
   showShortlist: false,
   eventError: null,
   pageNum: 1, // set default page number to first page
-  limitPerPage: 1 // set default items per page to 10; this will be able to be changed in a future iteration
+  limitPerPage: 10 // set default items per page to 10; this will be able to be changed in a future iteration
 };
 
 export default (state = initialState, action) => {
@@ -22,7 +22,8 @@ export default (state = initialState, action) => {
         eventsCount: action.payload.count,
         showShortlist: false,
         pageNum: action.payload.pageNum,
-        limitPerPage: action.payload.limit
+        limitPerPage: action.payload.limit,
+        eventError: null
       };
     case FETCH_SHORTLIST_ACTION:
       return {
@@ -31,7 +32,8 @@ export default (state = initialState, action) => {
         eventsCount: action.payload.count,
         showShortlist: true,
         pageNum: action.payload.pageNum,
-        limitPerPage: action.payload.limit
+        limitPerPage: action.payload.limit,
+        eventError: null
       };
     case DASHBOARD_ERROR_ACTION:
       return {

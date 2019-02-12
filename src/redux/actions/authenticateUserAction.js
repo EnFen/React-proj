@@ -21,10 +21,12 @@ const authenticateUser = (userRoute, postData) => async dispatch => {
     });
 
   } catch (error) {
-    // throw 'Wrong email or pasword...' message
+
+    const authenticateError = { error, type: userRoute };
+
     dispatch({
       type: AUTH_ERROR_ACTION,
-      payload: error
+      payload: authenticateError
     });
 
   };
@@ -44,10 +46,12 @@ const logoutUser = () => async dispatch => {
     });
 
   } catch (error) {
-    // throw logout error
+
+    const logoutError = { error, type: 'logout' };
+
     dispatch({
       type: AUTH_ERROR_ACTION,
-      payload: error
+      payload: logoutError
     });
 
   };

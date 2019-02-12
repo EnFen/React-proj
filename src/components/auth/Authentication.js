@@ -33,8 +33,8 @@ class Authentication extends Component {
                 {loggedIn && role === 'admin' && <Redirect to='/dashboard' />}
                 {loggedIn && role === 'user' && <Redirect to='/' />}
                 {authType === 'logout' && <Redirect to='/' />}
-                {authType === 'register' && <RegistrationForm loading={isLoading} flash={error} submit={this.handleSubmit} />}
-                {authType === 'login' && <LoginForm loading={isLoading} flash={error} submit={this.handleSubmit} />}
+                {authType === 'register' && <RegistrationForm submit={this.handleSubmit} />}
+                {authType === 'login' && <LoginForm submit={this.handleSubmit} />}
             </Fragment>
         );
     };
@@ -44,18 +44,14 @@ Authentication.propTypes = {
     authenticateUser: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
     loggedIn: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool,
     user: PropTypes.string,
     role: PropTypes.string,
-    error: PropTypes.object
 };
 
 const mapStateToProps = state => ({
     loggedIn: state.auth.loggedIn,
-    isLoading: state.auth.loading,
     user: state.auth.authenticatedUserEmail,
     role: state.auth.authenticatedUserRole,
-    error: state.auth.authError,
 });
 
 const mapDispatchToProps = {

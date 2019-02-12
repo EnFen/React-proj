@@ -8,7 +8,6 @@ class FlashMessages extends Component {
 
   render() {
     const { visible } = this.state;
-    console.log('This.props', this.props.message)
     const { message, color } = this.props;
     return (
       visible
