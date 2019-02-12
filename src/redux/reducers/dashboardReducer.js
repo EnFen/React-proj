@@ -7,7 +7,10 @@ import {
 const initialState = {
   eventsList: [],
   eventsCount: 0,
-  eventError: null
+  showShortlist: false,
+  eventError: null,
+  pageNum: 1, // set default page number to first page
+  limitPerPage: 1 // set default items per page to 10; this will be able to be changed in a future iteration
 };
 
 export default (state = initialState, action) => {
@@ -16,13 +19,19 @@ export default (state = initialState, action) => {
       return {
         ...state,
         eventsList: action.payload.data,
-        eventsCount: action.payload.count
+        eventsCount: action.payload.count,
+        showShortlist: false,
+        pageNum: action.payload.pageNum,
+        limitPerPage: action.payload.limit
       };
     case FETCH_SHORTLIST_ACTION:
       return {
         ...state,
         eventsList: action.payload.data,
-        eventsCount: action.payload.count
+        eventsCount: action.payload.count,
+        showShortlist: true,
+        pageNum: action.payload.pageNum,
+        limitPerPage: action.payload.limit
       };
     case DASHBOARD_ERROR_ACTION:
       return {

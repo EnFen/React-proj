@@ -9,49 +9,38 @@ import { connect } from "react-redux";
 
 class AdminDashboard extends Component {
 
+  // load first page data by default on first render
   componentDidMount = () => {
     const { pageNum, limitPerPage, fetchDashboard } = this.props;
 
     fetchDashboard(pageNum, limitPerPage);
   };
 
-  handlePaginationChange = (event) => {
-    const { pageNum, limitPerPage, fetchDashboard } = this.props;
-    //   const value = event.target.value;
+  // pagination
+  handlePageChange = (event) => {
+    // destructure props
+    let { pageNum, limitPerPage } = this.props;
+    const { showShortlist, fetchDashboard } = this.props;
 
-    //   const { eventsCount: count, fetchDashboard: dashboard } = this.props
+    // get text content of clicked event
+    const value = Number(event.currentTarget.getAttribute('value'));
 
-    //   // Helper method to be added on success
-    //   // fetchpage(pageNum, limitPerPage, value, count, fetchDashboard)
+    // assign clickeed value to page number
+    pageNum = value;
 
-    //   switch (value) {
-    //     case 'next':
-    //       pageNum = pageNum >= count ? pageNum : pageNum + 1;
-    //       break;
-    //     case 'prev':
-    //       pageNum = pageNum <= 0 ? pageNum : pageNum - 1;
-    //       break;
-    //     case Number(value) <= 0 || Number(value) >= count:
-    //       break;
-    //     default:
-    //       pageNum = Number(value);
-    //       break;
-    //   };
-
-    //   dashboard(pageNum, limitPerPage);
-
-    //   // const { loadafetchDashboard, history, eventLoadError } = this.props;
-    //   // if (eventLoadError) return;
-    //   // loadEventsList(pageNum);
-    //   // history.push(`?pageNum=${pageNum.activePage}`);
+    // fetch new set of data from api
+    fetchDashboard(pageNum, limitPerPage, showShortlist)
   };
 
+  // toggle filter for shortlist / all EOI's
   handleFilter = (event) => {
+    // desttructure props
     const { pageNum, limitPerPage, fetchDashboard } = this.props;
 
     // check if shortlist clicked; returns boolean
     const seeShortlist = textContainsString(event, 'shortlist');
 
+    // fetch new set of data from api
     fetchDashboard(pageNum, limitPerPage, seeShortlist);
   };
 
@@ -69,29 +58,30 @@ class AdminDashboard extends Component {
       <Fragment >
         <DashboardFilter filter={this.handleFilter} />
         <div className="cardContainer">{EoiCards}</div>
-        {/* {pages > 1 && */}
-        <PaginateEventsList activePage={currentPage} /*onPageChange={this.handlePaginationChange}*/ totalPages={pages} />
-        {/* } */}
+        {pages > 1 &&
+          <PaginateEventsList activePage={currentPage} pageChange={this.handlePageChange} totalPages={pages} />
+        }
       </Fragment>
     );
   };
 };
 
-
 AdminDashboard.propTypes = {
   eventsList: PropTypes.array.isRequired,
   eventsCount: PropTypes.number.isRequired,
+  showShortlist: PropTypes.bool.isRequired,
+  fetchDashboard: PropTypes.func.isRequired,
   pageNum: PropTypes.number.isRequired,
-  limitPerPage: PropTypes.number.isRequired,
-  fetchDashboard: PropTypes.func.isRequired
+  limitPerPage: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
   eventsList: state.dashboard.eventsList,
   eventsCount: state.dashboard.eventsCount,
+  showShortlist: state.dashboard.showShortlist,
   // eventError: state.dashboard.eventError, // TODO: Can this be sent to flash message at App level??
-  pageNum: Number(ownProps.location.search.split("=")[1]) || 1, // page number determined from query string
-  limitPerPage: 1 // set limit to default until next iteration - option to change will need to be added
+  pageNum: state.dashboard.pageNum,
+  limitPerPage: state.dashboard.limitPerPage
 });
 
 const matchDispatchToProps = {

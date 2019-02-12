@@ -10,7 +10,8 @@ const fetchDashboard = (pageNum, limit, isShortlist = false) => async dispatch =
   try {
     if (!isShortlist) {
 
-      const response = await api.get(`/dashboard?pageNum=${pageNum}&limit=${limit}`);
+      let response = await api.get(`/dashboard?pageNum=${pageNum}&limit=${limit}`);
+      [response.data.pageNum, response.data.limit] = [pageNum, limit];
 
       dispatch({
         type: FETCH_DASHBOARD_ACTION,
@@ -19,7 +20,8 @@ const fetchDashboard = (pageNum, limit, isShortlist = false) => async dispatch =
 
     } else {
 
-      const response = await api.get(`/dashboard/shortlist?pageNum=${pageNum}&limit=${limit}`);
+      let response = await api.get(`/dashboard/shortlist?pageNum=${pageNum}&limit=${limit}`);
+      [response.data.pageNum, response.data.limit] = [pageNum, limit];
 
       dispatch({
         type: FETCH_SHORTLIST_ACTION,
