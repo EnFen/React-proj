@@ -1,11 +1,10 @@
 import React, { Fragment, Component } from "react";
-import { connect } from 'react-redux';
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import ScrollToTop from '../components/services/ScrollToTop';
 import "./App.css";
 import Nav from "../components/nav/Nav";
 import FlashMessage from "../components/messages/FlashMessage";
-import LandingPage from "../components/pages/LandingPage/LandingPage";
+import LandingPage from "../components/pages/landingPage/LandingPage";
 import AdminDashboard from "../components/pages/dashboard/AdminDashboard";
 import EoiDetail from "../components/pages/EoiDetail";
 import ApplicationForm from "../components/forms/events/ApplicationForm";
@@ -14,6 +13,7 @@ import NotFound from "../components/_404/NotFound";
 import Spinner from '../components/messages/Spinner';
 import Footer from "../components/pages/Footer";
 import PropTypes from "prop-types";
+import { connect } from 'react-redux';
 
 class App extends Component {
 

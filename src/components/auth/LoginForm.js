@@ -33,9 +33,7 @@ const LoginForm = (props) => {
 };
 
 LoginForm.propTypes = {
-  submit: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  flash: PropTypes.object
+  submit: PropTypes.func.isRequired
 };
 
 export default LoginForm;

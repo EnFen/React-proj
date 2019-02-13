@@ -4,7 +4,7 @@ import { Menu, Icon } from 'semantic-ui-react';
 import LoginMenu from './LoginMenu';
 import LogoutMenu from './LogoutMenu';
 import PropTypes from 'prop-types';
-import { logoutUser } from "../../redux/actions/authenticateUserAction";
+import { logoutUser } from "../../redux/actions/authenticateUserActions";
 import { connect } from 'react-redux';
 
 class Nav extends Component {

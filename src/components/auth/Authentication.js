@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
 import PropTypes from 'prop-types';
-import { authenticateUser, logoutUser } from "../../redux/actions/authenticateUserAction";
+import { authenticateUser, logoutUser } from "../../redux/actions/authenticateUserActions";
 import { connect } from "react-redux";
 
 class Authentication extends Component {
