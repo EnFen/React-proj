@@ -1,10 +1,14 @@
 import {
     FETCH_DETAIL_ACTION,
+    TOGGLE_ITEM_ACTION,
+    UPDATE_DETAIL_ACTION,
+    DETAIL_UPDATE_ERROR_ACTION,
+    CHANGE_ITEMS_ACTION,
     DETAIL_ERROR_ACTION
 } from "../actions/constants/types";
 
 const initialState = {
-    isOpen: false,
+    openModal: false,
     location: [],
     keyInfluencers: [],
     description: '',
@@ -27,7 +31,9 @@ const initialState = {
     shortlisted: false,
     denied: false,
     deniedReason: '',
-    detailError: null
+    detailError: null,
+    updateMsg: null,
+    detailUpdateError: null
 };
 
 export default (state = initialState, action) => {
@@ -50,14 +56,34 @@ export default (state = initialState, action) => {
                 email: action.payload.host.user.email,
                 socialsCheck: action.payload.criteria.socials_check,
                 descCheck: action.payload.criteria.description_check,
-                volunteerCheck: action.payload.volunteers_check,
-                targetCheck: action.payload.target_value_check,
-                locationCheck: action.payload.location_check,
-                bestDateCheck: action.payload.best_date_check,
-                keyInfCheck: action.payload.key_influencers_check,
-                shortlisted: action.payload.shortlisted,
-                denied: action.payload.denied,
-                deniedReason: action.payload.denied_reason
+                volunteerCheck: action.payload.criteria.volunteers_check,
+                targetCheck: action.payload.criteria.target_value_check,
+                locationCheck: action.payload.criteria.location_check,
+                bestDateCheck: action.payload.criteria.best_date_check,
+                keyInfCheck: action.payload.criteria.key_influencers_check,
+                shortlisted: action.payload.criteria.shortlisted,
+                denied: action.payload.criteria.denied,
+                deniedReason: action.payload.criteria.denied_reason
+            };
+        case TOGGLE_ITEM_ACTION:
+            return {
+                ...state,
+                [action.payload]: !state[action.payload]
+            };
+        case UPDATE_DETAIL_ACTION:
+            return {
+                ...state,
+                updateMsg: action.payload
+            };
+        case DETAIL_UPDATE_ERROR_ACTION:
+            return {
+                ...state,
+                detailUpdateError: action.payload
+            };
+        case CHANGE_ITEMS_ACTION:
+            return {
+                ...state,
+                ...action.payload
             };
         case DETAIL_ERROR_ACTION:
             return {

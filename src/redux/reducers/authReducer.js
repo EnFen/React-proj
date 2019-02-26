@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
       console.log(action.payload.error, action.payload.type)
       return {
         ...state,
-        // loading: false,
+        loading: false,
         authErrorType: action.payload.type,
         authErrorMsg: action.payload.error
       };

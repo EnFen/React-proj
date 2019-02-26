@@ -14,7 +14,7 @@ const EoiCard = (props) => {
                     <Card.Description>
                         {host.organisation}
                     </Card.Description>
-                    <Button className="viewButton" as={Link} animated inverted color="red" to={`/dashboard/${id}`}>
+                    <Button className="viewButton" as={Link} to={`/dashboard/${id}`} animated inverted color="red" >
                         <Button.Content visible >VIEW</Button.Content>
                         <Button.Content hidden>
                             <Icon name='arrow right' />
