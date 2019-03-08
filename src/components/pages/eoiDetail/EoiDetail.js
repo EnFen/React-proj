@@ -68,16 +68,16 @@ class EoiDetail extends Component {
         };
 
         // pass the id, and options to the updateEoiDetails action
-        updateEoiDetails(id, options);
+        await updateEoiDetails(id, options);
 
-        // // Redirect to dashboard if application has been denied
-        // if (this.props.denied) {
-        //     history.push('/dashboard');
-        // };
+        // Redirect to dashboard if application has been denied
+        if (this.props.denied) {
+            history.push('/dashboard');
+        };
     };
 
 
-    handleShortlist = (event) => {
+    handleShortlist = async (event) => {
         // get name from target element
         const name = event.currentTarget.name; // === 'shortlisted'
 
@@ -85,7 +85,7 @@ class EoiDetail extends Component {
         const { toggleItem } = this.props;
 
         // pass element name to toggleItem action
-        toggleItem(name);
+        await toggleItem(name);
 
         // immediately update shortlisted criteria on record
         this.handleUpdate();
@@ -106,7 +106,7 @@ class EoiDetail extends Component {
         await changeItems(items);
 
         // close modal
-        toggleItem('openModal');
+        await toggleItem('openModal');
 
         // immediately update denied and deniedReason criteria on record
         this.handleUpdate();
@@ -199,7 +199,34 @@ class EoiDetail extends Component {
 };
 
 EoiDetail.propTypes = {
-
+    openModal: PropTypes.bool.isRequired,
+    email: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    keyInfluencers: PropTypes.array.isRequired,
+    description: PropTypes.string.isRequired,
+    volunteers: PropTypes.bool.isRequired,
+    target: PropTypes.string.isRequired,
+    bestTime: PropTypes.string.isRequired,
+    councilRelationship: PropTypes.bool.isRequired,
+    councilDetails: PropTypes.array.isRequired,
+    socials: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    organisation: PropTypes.string.isRequired,
+    socialsCheck: PropTypes.bool.isRequired,
+    descCheck: PropTypes.bool.isRequired,
+    volunteerCheck: PropTypes.bool.isRequired,
+    targetCheck: PropTypes.bool.isRequired,
+    locationCheck: PropTypes.bool.isRequired,
+    bestDateCheck: PropTypes.bool.isRequired,
+    keyInfCheck: PropTypes.bool.isRequired,
+    shortlisted: PropTypes.bool.isRequired,
+    denied: PropTypes.bool.isRequired,
+    deniedReason: PropTypes.string.isRequired,
+    fetchEoiDetails: PropTypes.func.isRequired,
+    toggleItem: PropTypes.func.isRequired,
+    updateEoiDetails: PropTypes.func.isRequired,
+    changeItems: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

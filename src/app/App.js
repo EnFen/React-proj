@@ -16,6 +16,7 @@ import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 
 class App extends Component {
+  // TODO: Create Stateful Flash Component with all message types and plug in at top of App
 
   render() {
     const { loading, loggedIn, userRole, sessionEnd, authErrorType, authErrorMsg, eventError, detailError, detailUpdateError, updateMsg } = this.props;
@@ -77,7 +78,7 @@ App.propTypes = {
   userRole: PropTypes.string,
   sessionEnd: PropTypes.bool.isRequired,
   authErrorType: PropTypes.string,
-  authErrorMsg: PropTypes.string,
+  authErrorMsg: PropTypes.object,
   eventError: PropTypes.object,
   detailError: PropTypes.object,
   updateMsg: PropTypes.string,
